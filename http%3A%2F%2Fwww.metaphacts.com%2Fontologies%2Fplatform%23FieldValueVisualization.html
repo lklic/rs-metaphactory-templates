@@ -1,0 +1,16 @@
+<span>
+    {{#ifCond field.xsdDatatype.value "==" "http://www.w3.org/2001/XMLSchema#anyURI"}}
+      {{log value}}
+      {{#if value.label}}
+         <semantic-link uri="{{value.value.value}}">{{value.label}}</semantic-link>
+      {{else}}
+         <semantic-link uri="{{value.value}}">{{value.value}}</semantic-link>
+      {{/if}}
+    {{else}}
+      {{#if value.label}}
+        {{value.value.value}}
+      {{else}}
+        {{value.value.value}}
+      {{/if}}
+    {{/ifCond}}
+</span>

@@ -1,0 +1,19 @@
+<ol class="page-breadcrumb">
+  <li>
+    <mp-link title="Home" url="/">Home</mp-link>
+  </li>
+</ol>
+<div style="clear:both;"></div>
+<div class="page">
+  <div class='page__body'>
+      <semantic-simple-search
+          query='
+            SELECT ?resource ?label WHERE {
+             FILTER REGEX(?label, ?__token__, "i")
+             ?resource rdfs:label ?label
+            } LIMIT 10'
+          template='<span style="color: blue;" title="{{resource.value}}">{{label.value}}</span>'
+          placeholder='Search for something e.g. "Bob"'>
+      </semantic-simple-search>
+  </div>
+</div>

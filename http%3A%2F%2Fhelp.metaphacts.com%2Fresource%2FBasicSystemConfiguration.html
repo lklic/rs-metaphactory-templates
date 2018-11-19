@@ -1,0 +1,366 @@
+<ol class="page-breadcrumb">
+  <li>
+    <mp-link title="Home" url="/">Home</mp-link>
+  </li>
+  <li>
+    <semantic-link title="Help" uri="http://help.metaphacts.com/resource/Start">Help</semantic-link>
+  </li>
+  <li>
+    <semantic-link title="Documentation Overview" uri="http://help.metaphacts.com/resource/DocumentationOverview">DocumentationOverview</semantic-link>
+  </li>
+  <li class="active">
+    Basic System Configuration
+  </li>
+</ol>
+
+<div class="page">
+  <div class='page__body'>
+    <h1> Basic System Configuration </h1>
+    This page describes how to adjust general system behavior via configuration properties. 
+
+    <h2> Configuration Properties</h2>
+
+    Configuration properties are divided into three so called "configuration groups": 
+
+    <ul>
+      <li>  Environment Configuration Group </li> 
+      <li>  Global Configuration Group </li> 
+      <li>  UI Configuration Group </li> 
+    </ul>
+    <p>
+      Properties in these groups might be shadowed via JVM runtime parameters, for example, depending on the deployment mode one may particular supply environment specific groups via JVM runtime parameters. 
+      This can by done by supplying <span class="inline-code">"-Dconfig.{configGroup}.{propertyName}={propertyValue}"</span>, 
+      where "configGroup"" is the identifier of the configuration (either "environment", "global", or "ui" for the three groups, respectively) and "propertyName" is the name of the property in the given group.
+      Shadowed parameters can not be overwritten or changed during runtime.
+    </p>
+
+    <h3>Environment Configuration Group </h3>
+
+    The environment group (file "config/environment.prop") contains all deployment-specific configuration options such as server URLs, keys, etc. 
+    These parameters may influence how the platform is initialized and as such they can not be change during runtime, for example, through the &nbsp;<semantic-link uri="http://www.metaphacts.com/resource/admin/Configuration" title="Configuration">configuration UI</semantic-link>.
+    <br><br>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Property</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>sparqlEndpoint</td>
+          <td>URL</td>
+          <td>URL to the remote SPARQL endpoint. <b> If the repository is running on a different machine and only accessible through HTTPS</b>, then it might be required to import certificates into your JVM's keystore.</td>
+        </tr>
+        <tr>
+          <td>shiroAuthenticationFilter</td>
+          <td>List of Strings (comma separated)</td>
+          <td>Authentication filter to apply. Any combination of "anon" (Anonymous User),"authc" (FormBasedAuthentication) ,"authcBasic" (HTTP Basic Authentication). Default: "authcBasic, authc" </td>
+        </tr>
+        <tr>
+          <td>shiroSessionTimeoutSecs</td>
+          <td>Integer</td>
+          <td>The time after which sessions will be closed in case of inactivity Default: 1800. </td>
+        </tr>
+        <tr>
+        	<td>allowedCrossOrigin</td>
+          <td>String</td>
+          <td>Specifies the <code>Access-Control-Allow-Origin</code>. <code>*</code> can be used as a wildcard, thereby allowing any origin to access the resource. Please note that by default this property is set to <code>null</code> and thereby does set any CORS headers at all. Default: null. </td>
+        </tr>
+        <tr>
+        	<td>sparqlHttpConnectionTimeout</td>
+          <td>Integer</td>
+          <td>SPARQL HTTP connection timeout (in seconds). This value is used to set both <code>http.connection.timeout</code> (timeout for establishing the connection) and <code>http.socket.timeout</code> (timeout for waiting for the data) parameters of the Apache HttpClient. Default: null (infinite) </td>
+        </tr> 
+      </tbody>
+    </table>
+
+    <h3>Global Configuration Group </h3>
+    Global system configuration, affecting system functionality like global redirects etc.
+    <br><br>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Property</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>homePage</td>
+          <td>URI</td>
+          <td>Prefixed or full URI ( surround by &lt;&gt;) to specify the page the user should be redirect to after login or if she clicks on the home button. Default: "Start"</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>UI Configuration Group </h3>
+    Configuration properties for options that affect how data is displayed in the UI.
+
+    <br><br>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Property</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>templateIncludeQuery</td>
+          <td>SPARQL SELECT Query</td>
+          <td>Specifies the SPARQL SELECT query according to which the template engine selects templates depending on the request resource / context (i.e. ??).								<br/> Query must have at least a "?type" projection variable. Default: "SELECT ?type WHERE{?? a ?type}" </td>
+        </tr>
+        <tr>
+          <td>preferredLabels</td>
+          <td>Comma separated list of strings.</td>
+          <td>
+            Ordered list of predicates, property paths and/or graph patterns, which are used to generate human readable labels for IRIs within the application:<br><ul style="list-style-type:none">
+              <li>(a) full ( surround by &lt;&gt;) or prefixed IRIs or/and </li> 
+              <li>(b) a SPARQL property path with full or prefixed IRIs or/and </li>
+              <li>(c) a full SPARQL pattern, which must have a <code>?subject</code> (will be used to inject the entity for which a label should be generated) and a <code>?value</code> (denoting the label value) variable. The entire pattern must be enclosed by curly braces (<code>{ ?subject ?predicate ?value }</code>) and <u>commas must be escaped</u> with a backslash (<code>\</code>).</li>
+            </ul>
+            <b>Example:</b><br>
+            <code>rdfs:label,&lt;http://www.w3.org/2004/02/skos/core#prefLabel&gt;,a/rdfs:subClassOf/rdfs:label, {OPTIONAL{?subject skos:altLabel ?altLabel.} BIND(COALESCE(?altLabel\,"No Label") as ?value)}</code><br>
+            <br>
+            <p>If multiple labels exists for an entity, order of preference is denoted through the order of predicates/patterns in the list. If no label is returned by any of the predicates or patterns, the label service will return the local name of the entity IRI as label. Labels may additionally be ranked by the <code>preferredLanguages</code> setting.</p>
+            <p>
+              Please note that the number and complexity of patterns may heavily influences the performance and load of the application/underlying database. 
+            </p>
+            Default: rdfs:label
+          </td>
+        </tr>
+        <tr>
+          <td>preferredLanguages</td>
+          <td>Comma separated list of language tags</td>
+          <td>
+            Language tag filter over potential <code>preferredLabels</code> candidates. Order of preference is denoted through the order of language tags in the list.
+            Default: null
+          </td>
+        </tr>
+        <tr>
+          <td>preferredThumbnails</td>
+          <td>Comma separated list of strings.</td>
+          <td>
+             Ordered list of predicates, property paths and/or graph patterns, which are used to generate thumbnails for IRIs within the application:<br><ul style="list-style-type:none">
+              <li>(a) full ( surround by ) or prefixed IRIs or/and </li> 
+              <li>(b) a SPARQL property path with full or prefixed IRIs or/and </li>
+              <li>(c) a full SPARQL pattern, which must have a <code>?subject</code> (will be used to inject the entity for which a thumbnail should be generated) and a <code>?value</code> (denoting the thumbnail value i.e. URL to the image) variable. The entire pattern must be enclosed by curly braces (<code>{ ?subject ?predicate ?value }</code>) and <u>commas must be escaped</u> with a backslash (<code>\</code>).</li>
+            </ul>
+            <b>Example:</b><br>
+            <i>Please refer to the example from the <code>preferredLabels</code> configuration.</i>
+           	<br><br>
+            <p>If multiple thumbnails exists for an entity, order of preference is denoted through order of predicates/patterns in the list.</p>
+             <p>
+              Please note that the number and complexity of patterns may heavily influences the performance and load of the application/underlying database.  
+            </p>
+            Default: &lt;http://schema.org/thumbnail&gt;
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+
+    <h2> Security </h2>
+    The platform relies on the <a href="http://shiro.apache.org" target="_blank">Apache Shiro</a> security framework. 
+    While it is possible to hook-in different security providers and realms, the easiest way is to define users, roles and permissions using the "shiro.ini" file. <br/>
+
+    New user accounts should be created using the respective &nbsp;<semantic-link uri="http://www.metaphacts.com/resource/admin/Security" title="Security">administration page </semantic-link>. The same widget can be used to modify accounts and to re-assign existing roles to users. However, creating new roles and permissions need to be done by modifying the shiro.ini manually (c.f. Basic ACLs section at the bottom of the page). <br/>
+
+    <bs-alert bs-style="info"><strong>Please Note:</strong><br/>
+      If no shiro.ini file is configured, the platform will use a a pre-bundled shiro.ini file with default logins and a warning will be printed in the startup logs.
+    </bs-alert>
+    <h3> Login Protection </h3>
+    By default the platform requires authentication for all resources below the root /** URL. <br/>
+    For security reasons it is not possible to disable authentication entirely, 
+    however, one can grant access to anonymous/guest user by enabling a special "anon" authentication filter (c.f. general system properties section).
+
+    To activate the filter, the following configuration property needs to be set in environment.prop
+    <div class="highlight" style="margin-left:2%"><pre>
+  shiroAuthenticationFilter=authcBasic,anon,authc
+  </pre></div>
+
+    <bs-alert bs-style="info"><strong>Please Note:</strong><br/>
+      For the special anonymous filter ("anon") a static user with the user principal <b>"anonymous"</b> (and any dummy password) must be configured 
+      i.e. must granted access to the respective resource and operations by assigning the respective roles (c.f. Basic ACLs section below).
+    </bs-alert>
+    <h3> Basic ACLs </h3>
+    ACL permission strings are used to restrict certain actions or behavior, which are typically exposed through REST interfaces.<br>
+    Permissions are <b>whitelist based</b> i.e. they need to be assigned explicitly to users through respective roles.
+
+    <h4>Permission Schema*:</h4>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Pattern</th>
+          <th>Permission</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>sparql:query:select|ask|construct|describe</td>
+          <td>Grants permission to execute SELECT, ASK, CONSTRUCT and/or DESCRIBE queries. <code>sparql:query:*</code> grants permission to all SPARQL query operations i.e. SELECT, ASK, CONSTRUCT, DESCRIBE.</td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>sparql:update</td>
+          <td>Grants permission to execute any kind of SPARQL update operation.</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>sparql:graphstore:get|create|modify|delete|head</td>
+          <td>Grants permission to get, create, modify or delete any named graph by performing a GET, POST, PUT, DELETE or HEAD operation on /rdf-graph-store?graph={URI} . <code>sparql:graphstore:*</code> grants permissions to all these operations.</td>
+        </tr>
+        <tr>
+          <th scope="row">4</th>
+          <td>forms:ldp:create|update</td>
+          <td>Grants permission to create or update LDP container, which are created when using the authoring forms in LDP persistence mode.</td>
+        </tr>
+        <tr>
+          <th scope="row">5</th>
+          <td>forms:sparql:insert|delete</td>
+          <td>Grants permission to run insert or delete operations, which are executed when using the authoring forms in SPARQL persistence mode.</td>
+        </tr>
+        <tr>
+          <th scope="row">6</th>
+          <td>templates:edit:view|save</td>
+          <td>Grants permission to view and/or save template page code. <code>templates:edit:*</code> grants permission to all templates edit operations.</td>
+        </tr>
+        <tr>
+          <th scope="row">7</th>
+          <td>templates:info:view|export|delete</td>
+          <td>Grants permission to view meta-information, export and/or delete template and static pages.</td>
+        </tr>
+        <tr>
+          <th scope="row">8</th>
+          <td>accounts:users:query|create|delete</td>
+          <td>Grants permission to query user account information (i.e. roles/permissions), create oder delete local user accounts. <code>accounts:users:*</code> grants all permissions for local user-account management.</td>
+        </tr>
+        <tr>
+          <th scope="row">9</th>
+          <td>accounts:roles:query</td>
+          <td>Grants permission to query role assignment information for local users.</td>
+        </tr>
+        <tr>
+          <th scope="row">10</th>
+          <td>accounts:permissions:query</td>
+          <td>Grants permission to query permission information for local users.</td>
+        </tr>        
+        <tr>
+          <th scope="row">11</th>
+          <td>accounts:ldap:sync</td>
+          <td>Grants permission to trigger LDAP metadata synchronization.</td>
+        </tr>
+        <tr>
+          <th scope="row">12</th>
+          <td>repository-config:view|create|update|delete</td>
+          <td>Grants permission to view, create, update or delete repository configurations.<code>repository-config:*</code> grants a wildcard permission to all operations needed for (remote) administration of repository configurations. These permissions should only be granted to root administrators, if repositories need to be changed through the UI.</td>
+        </tr>
+        <tr>
+          <th scope="row">13</th>
+          <td>job:create|info:data-quality</td>
+          <td>Grants permission run the data-quality job and/or retrieve the job status.</td>
+        </tr>
+        <tr>
+          <th scope="row">14</th>
+          <td>caches:*:invalidate</td>
+          <td>Grants permission to invalidate caches.</td>
+        </tr>
+        <tr>
+          <th scope="row">15</th>
+          <td>namespaces:create|change|delete</td>
+          <td>Grants permission to create, change or delete entries of the RDF namespace service.</td>
+        </tr>
+        <tr>
+          <th scope="row">16</th>
+          <td>api:config:{configGroup}:{propertyName}:{usageMode}</td>
+          <td>
+            Grants permission to configuration properties. <br>
+            <b>Examples:</b><br>
+            api:config:ui:templateIncludeQuery:read - grants permission to read the templateIncludeQuery parameter <br>
+            <code>api:config:ui:*:write</code> - grants permission to write all config parameters in the ui configuration group<br>
+            <code>api:config:environment:*:*</code> - grants permission to read and write all config parameters in the environment configuration group<br>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">17</th>
+          <td>api:ldp:container:&#60;container_iri&#62;|&#60;item_rdf_type_iri&#62;:create|(update:any)|(update:owner)|(delete:any)|(delete:owner)</td>
+          <td>
+            Grants permissions to create, update and delete items to the specified container.<br>
+            <b>Examples:</b><br>
+            	Create new resources:<br>
+            	<code>api:ldp:container:&#60;container_iri&#62;:create</code> - add items to the container<br>
+              <code>api:ldp:type:&#60;item_rdf_type_iri&#62;:create:any</code> - add items to any container that can store items of a given type <br>
+              <code>api:ldp:type:&#60;item_rdf_type_iri&#62;:create:owner</code> - add items to own container that can store items of a given type<br>
+              Update resources:<br>
+              <code>api:ldp:container:&#60;container_iri&#62;:update:any</code> - update any item that belongs to the container <br>
+              <code>api:ldp:container:&#60;container_iri&#62;:update:owner</code> - update only own items that belong to the container <br>
+              <code>api:ldp:type:&#60;item_rdf_type_iri&#62;:update:any</code> - update any item of a given rdf type<br>
+              <code>api:ldp:type:&#60;item_rdf_type_iri&#62;:update:owner</code> - update only own items of a given rdf type<br>
+
+              Delete resources:<br>
+              <code>api:ldp:container:&#60;container_iri&#62;:delete:any</code> - delete any item that belongs to the container<br> 
+              <code>api:ldp:container:&#60;container_iri&#62;:delete:owner</code> - update only own items that belong to the container <br>
+              <code>api:ldp:type:&#60;item_rdf_type_iri&#62;:delete:any</code> - delete any item of a given rdf type<br>
+              <code>api:ldp:type:&#60;item_rdf_type_iri&#62;:delete:owner</code> - delete only own items of a given rdf type<br>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">18</th>
+          <td>qaas:create|update|delete|info</td>
+          <td>Permission for managaging "Query as a Service" objects i.e. grants permissions to create, update, delete service or to retrieve meta-information.</td>
+        </tr>
+        <tr>
+          <th scope="row">19</th>
+          <td>qaas:execute:{service-permission-string}</td>
+          <td>Permission for executing a particular "Query as a Service" service. <code>qaas:execute:*</code> can be used as a wildcard permission i.e. to enable execution of all services independently of their individual permission string assignments.</td>
+        </tr>
+        <tr>
+          <th scope="row">20</th>
+          <td>proxy:{proxy-id}</td>
+          <td>Permission for accessing any service, which is proxied through the platforms <semantic-link iri=[[resolvePrefix "Help:AuthenticationProxy"]]>proxy service</semantic-link>. </td>
+        </tr>
+      </tbody>
+    </table>
+		<p>
+          <i>* <code>{}</code> needs to be replaced by specific IDs. <code>|</code> is used as locial OR for the sake of readablity, however, the string needs to be fully normalize when used in the shiro.ini file.</i>
+    </p>
+    
+    <p>
+      The permissions from above are pre-defined to restrict actions on core platform functionality to certain user roles. Ontop, (domain specific) applications may add/define own permission strings and define new user roles, for example, in order to control certain user interface behaviour.
+    </p>
+      
+    <b>Example Configuration:</b><br/>
+    The example below defines two users with salt-encrypted passwords (c.f. <a href="http://shiro.apache.org/command-line-hasher.html" target="_blank">Shiro Command Line Hasher</a>) and assigns roles to them. Permissions are granted to roles in the <i>[roles]</i> section.<br/>
+    <ul>
+      <li>The role "rootRole" is granted permission to view, create and modify accounts.</li>
+      <li>The role "adminRole" is granted permission to execute all SPARQL query and update operations as well as to save template pages .</li>
+      <li>The role "guestRole" is granted permission to execute all SPARQL query operations, but no update operations.  In addition, the "guestRole" can not save template pages.</li>
+    </ul>
+    <div class="highlight" style="margin-left:2%"><pre>
+  [users]
+  admin=$shiro1$SHA-256$500000$JWFyxDbrkcdlGl6Xpj02dg==$UYbUG3bHmT8Z4dTeEHToK5WdyvwR9cRefiM/9zRjfr4=,adminRole,rootRole
+  guest=$shiro1$SHA-256$500000$IbH5irWwZzyQlXHZg33GeA==$n+A1vGbmrIxJBBxGcsNn3cz48wDvhBkMbNPcskfAQy4=,guestRole
+
+  [roles]
+  rootRole = accounts:*:*
+  adminRole = sparql:update, sparql:query:*, sparql:graphstore:*, templates:*:*
+  guestRole = sparql:query:*
+
+  </pre></div>
+
+    It is <b>strongly recommended</b> to only change the <i>[roles]</i> section by hand and to do these changes not during runtime.<br/>
+
+  </div>
+</div>
+
+

@@ -1,0 +1,62 @@
+<ol class="page-breadcrumb">
+  <li>
+    <mp-link title="Home" url="/">Home</mp-link>
+  </li>
+   <li class="active">
+    <mp-label iri='[[this]]'></mp-label>
+  </li>
+</ol>
+<div class="page">
+  <div class='page__header-navtabs'>
+      [[> Platform:DefaultResourceHeader]]
+  </div>
+   <div class="SplitPane  vertical " style="flex-direction: row; flex: 1 1 0%; user-select: text; overflow: hidden; position: absolute; height: 100%; left: 0px; right: 0px; outline: none; display: -webkit-flex;"> 
+       
+    <div class="Pane vertical Pane1" style="flex: 0 0 auto; position: relative; outline: none;">
+    	[[#>rsi:ClipboardSidebar]]
+    	[[/rsi:ClipboardSidebar]]
+  	</div>
+  	<div class="Pane vertical Pane2" style="flex: 1 1 0%; position: relative; outline: none; width: 25%;">
+  <bs-tabs id='record-tabs' class='page__body-navtabs--borderless' default-active-key='summary' unmount-on-exit=true>
+    <bs-tab event-key='summary' title='Summary'>
+      <div data-flex-layout='row top-stretch'>
+          <div data-flex-self='size-xsmall' style="color:#e8e6e6;font-weight:700;" class="text-center">
+                <i class="fa fa-file-image-o" style="font-size:70px;" aria-hidden="true"></i><br><br>
+            		No document preview available.
+        	</div>
+        <div class='table-responsive'>
+          <table class='table'>
+            <thead role='header'>
+              <tr>
+                <th>Field</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            
+<mp-field-visualization
+subject='[[this]]'
+fields='[[fieldDefinitions
+http://www.metaphacts.com/fieldDefinition/Institution_ID_Getty="http://www.metaphacts.com/fieldDefinition/Institution_ID_Getty"
+http://www.metaphacts.com/fieldDefinition/Institution_Name_Getty="http://www.metaphacts.com/fieldDefinition/Institution_Name_Getty"
+http://www.metaphacts.com/fieldDefinition/Geonames="http://www.metaphacts.com/fieldDefinition/Geonames"
+http://www.metaphacts.com/fieldDefinition/VIAF_Geographic="http://www.metaphacts.com/fieldDefinition/VIAF_Geographic"
+http://www.metaphacts.com/fieldDefinition/Google_Maps="http://www.metaphacts.com/fieldDefinition/Google_Maps"
+http://www.metaphacts.com/fieldDefinition/VIAF_Corporate="http://www.metaphacts.com/fieldDefinition/VIAF_Corporate"
+http://www.metaphacts.com/fieldDefinition/Institution_Sub-Collection_Getty="http://www.metaphacts.com/fieldDefinition/Institution_Sub-Collection_Getty"
+http://www.metaphacts.com/fieldDefinition/Institution_Notes_Getty="http://www.metaphacts.com/fieldDefinition/Institution_Notes_Getty"
+http://www.metaphacts.com/fieldDefinition/Institution_Type_Getty="http://www.metaphacts.com/fieldDefinition/Institution_Type_Getty"
+
+http://www.metaphacts.com/fieldDefinition/Institution_City_Florentine_Paintings="http://www.metaphacts.com/fieldDefinition/Institution_City_Florentine_Paintings"
+
+http://www.metaphacts.com/fieldDefinition/Page_Institution_Name_Fototeca="http://www.metaphacts.com/fieldDefinition/Page_Institution_Name_Fototeca"
+]]'
+template='{{> Platform:FieldBasedVisualization subject="[[this]]"}}'
+></mp-field-visualization>
+             </table>
+        </div>
+      </div>
+    </bs-tab>
+  </bs-tabs>  
+</div>
+  </div>
+</div>

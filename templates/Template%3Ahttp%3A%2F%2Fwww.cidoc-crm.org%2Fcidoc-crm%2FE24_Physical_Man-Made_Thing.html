@@ -1,0 +1,42 @@
+<ol class="page-breadcrumb">
+  <li>
+    <mp-link title="Home" url="/">Home</mp-link>
+  </li>
+</ol>
+<div class="page">
+  [[!-- [[#> crmPageModule:ClipboardSidebar]] --]]
+
+
+  <bs-tabs id='record-tabs' class='page__body-navtabs--borderless' default-active-key='summary' unmount-on-exit=true>
+    <bs-tab event-key='summary' title='Summary'>
+      <div data-flex-layout='row top-stretch'>
+          <div data-flex-self='size-xsmall' style="color:#e8e6e6;font-weight:700;" class="text-center">
+                <i class="fa fa-file-image-o" style="font-size:70px;" aria-hidden="true"></i><br><br>
+            		No document preview available.
+        	</div>
+        <div class='table-responsive'>
+          <table class='table'>
+            <thead role='header'>
+              <tr>
+                <th>Field</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            
+<mp-field-visualization
+subject='[[this]]'
+fields='[[fieldDefinitions
+http://www.metaphacts.com/fieldDefinition/Artwork_ID="http://www.metaphacts.com/fieldDefinition/Artwork_ID"
+https://rs.itatti.harvard.edu/container/fieldDefinitionContainer/7730c6db-48a1-44ba-bffb-d1c3ef5e8701="https://rs.itatti.harvard.edu/container/fieldDefinitionContainer/7730c6db-48a1-44ba-bffb-d1c3ef5e8701"
+http://www.metaphacts.com/fieldDefinition/End_Date="http://www.metaphacts.com/fieldDefinition/End_Date"
+http://www.metaphacts.com/fieldDefinition/Start_Date="http://www.metaphacts.com/fieldDefinition/Start_Date"
+]]'
+template='{{> Platform:FieldBasedVisualization subject="[[this]]"}}'
+></mp-field-visualization>
+             </table>
+        </div>
+      </div>
+    </bs-tab>
+  </bs-tabs>  
+ [[!-- [[/ crmPageModule:ClipboardSidebar]] --]]
+</div>

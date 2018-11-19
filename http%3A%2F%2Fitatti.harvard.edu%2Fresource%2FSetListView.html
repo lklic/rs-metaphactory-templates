@@ -1,0 +1,23 @@
+<div style="display: flex; align-items: center;">
+  <div style="flex: 1; overflow: hidden;">
+    <mp-resource-link-container uri="{{iri.value}}" draggable=true>
+      <span style="display: flex; align-items: center; flex: 1;">
+        <semantic-switch query='SELECT ?type WHERE {<{{iri.value}}> a ?type } LIMIT 1'>
+          <template id='http://www.cidoc-crm.org/cidoc-crm/E22_Man-Made_Object'><img style="width: 25px; flex-shrink: 0;" src="https://png2.kisspng.com/20180418/vue/kisspng-north-east-school-of-the-arts-fine-art-art-exhibit-white-paint-5ad7663eb91a16.1978996915240658547582.png"></template>
+          <template id='https://collection.itatti.harvard.edu/fc/institution'><img style="width: 25px; flex-shrink: 0;" src="https://az616578.vo.msecnd.net/files/2016/05/23/635996009742568479-1205526956_institution.png"></template>
+          <template id='http://www.cidoc-crm.org/cidoc-crm/E40_Legal_Body'><img style="width: 25px; flex-shrink: 0;" src="https://az616578.vo.msecnd.net/files/2016/05/23/635996009742568479-1205526956_institution.png"></template>
+          <template id='http://www.cidoc-crm.org/cidoc-crm/E21_Person'><img style="width: 25px; flex-shrink: 0;" src="http://www.jmkxyy.com/artist-icon/artist-icon-14.jpg"></template>
+          <template id='https://collection.itatti.harvard.edu/fc/thing'><img style="width: 25px; flex-shrink: 0;" src="https://cdn2.iconfinder.com/data/icons/superthick-e-commerce/128/box-delivery-thing-package-512.png"></template>
+          <template id='http://www.cidoc-crm.org/cidoc-crm/E53_Place'><img style="width: 25px; flex-shrink: 0;" src="https://png.pngtree.com/svg/20160825/location_46254.png"></template>
+        </semantic-switch>
+        <mp-label iri="{{iri.value}}" highlight="{{highlight}}"
+                  highlight-props='{"style": {"color": "#dc8a4b"}}'
+                  style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+                  ></mp-label>
+      </span>
+    </mp-resource-link-container>
+  </div>
+  <div class="set-management__item-actions" style="margin-left: auto;">
+    [[> rsi:SetItemActions]]
+  </div>
+</div>

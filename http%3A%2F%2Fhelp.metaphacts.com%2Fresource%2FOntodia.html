@@ -1,0 +1,265 @@
+<ol class="page-breadcrumb">
+  <li>
+    <mp-link title="Home" url="/">Home</mp-link>
+  </li>
+  <li>
+    <semantic-link title="Help" data-uri="http://help.metaphacts.com/resource/Start">Help</semantic-link>
+  </li>
+  <li>
+    <semantic-link title="Documentation" uri="http://help.metaphacts.com/resource/DocumentationOverview">Documentation</semantic-link>
+  </li>
+  <li>
+    <semantic-link title="Components" uri="http://help.metaphacts.com/resource/HTML5Components">Components</semantic-link>
+  </li>
+  <li class="active">Ontodia Diagram Component</li>
+</ol>
+
+<div class="page">
+  <div class='page__body'>
+    <h1> Ontodia Diagram Component </h1>
+    <div class="documentation__intro">
+      <div class="documentation__intro__description">
+        <p>Diagrams can be printed, exported and saved to be referenced from other components within the platform.</p>
+      </div>
+      <div class="documentation__intro__demo" style="height: 500px">
+        <ontodia settings="nostats"></ontodia>
+      </div>
+    </div>
+
+    <h2> Configuration </h2>
+    <mp-documentation type="OntodiaConfig"></mp-documentation>
+
+    <h3> Use cases </h3>
+    This component supports different initialization options to cover different use cases.
+
+    <h4> Create empty diagram </h4>
+    <div class="documentation__example">
+      <div class="documentation__example__description">
+        To create an empty diagram, use <code><ontodia></ontodia></code> tag without any parameters. After saving a diagram, the user will be forwarded to the resource specified by <code>navigate-to</code>.
+        When saving a diagram, only the diagram layout is stored - positions of nodes, shapes of the links, and corresponding IRIs in the original data source. When the diagram is loaded,
+        Ontodia reloads contents of all elements, keeping the diagram up-to-date with the data.
+      </div>
+      <div class="documentation__example__demo">
+        <mp-code-example>
+<![CDATA[
+<div style="height: 500px">
+  <ontodia settings="nostats"></ontodia>
+</div>
+]]>
+        </mp-code-example>
+      </div>
+    </div>
+
+    <h4> Display stored diagram </h4>
+    <div class="documentation__example">
+      <div class="documentation__example__description">
+        To display stored diagram, specify it's ID. To prevent user from modifying a diagram, set <code>readonly</code> property to true.
+        In this example the diagram will not load, because it will need missing diagram layout.
+      </div>
+      <div class="documentation__example__demo">
+        <mp-code-example>
+<![CDATA[
+<div style="height: 500px">
+  <ontodia settings="nostats" diagram='http://example.com/diagram1'></ontodia>
+</div>
+]]>
+        </mp-code-example>
+      </div>
+    </div>
+
+    <h4> Display diagram with starting element </h4>
+    <div class="documentation__example">
+      <div class="documentation__example__description">
+        You can specify a node to start a new diagram with. Use <code>iri</code> property.
+      </div>
+      <div class="documentation__example__demo">
+        <mp-code-example>
+<![CDATA[
+<div style="height: 500px">
+  <ontodia settings="nostats" iri='http://example.com/node1'></ontodia>
+</div>
+]]>
+        </mp-code-example>
+      </div>
+    </div>
+
+    <h4> Display diagram with graph created by construct query </h4>
+    <div class="documentation__example">
+      <div class="documentation__example__description">
+        To initialize a diagram with some graph on it, you can specify a SPARQL Construct query with the <code>query</code> parameter.
+      </div>
+      <div class="documentation__example__demo">
+        <mp-code-example>
+<![CDATA[
+<div style="height: 500px">
+  <ontodia 
+    settings="nostats"
+    query='
+      prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+      prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+      prefix person: <http://example.com/person/>
+      prefix org: <http://example.com/org/>
+      prefix foaf: <http://xmlns.com/foaf/0.1/>
+
+      CONSTRUCT {
+        ?s ?p ?o
+      } WHERE {
+        {
+          SELECT ?s ?p ?o WHERE {
+            VALUES (?s ?p ?o)
+            {
+              (person:alice foaf:knows person:bob)
+              (person:alice foaf:knows person:carol)
+              (person:carol foaf:knows person:mike)
+              (person:mike foaf:knows person:carol)
+              (person:bob foaf:knows person:carol)
+              (person:alice foaf:knows person:mike)
+              (person:alice foaf:member org:W3C)
+              (person:mike foaf:member org:W3C)
+              (person:alice rdf:type foaf:Person)
+              (person:carol rdf:type foaf:Person)
+              (person:mike rdf:type foaf:Person)
+              (person:bob rdf:type foaf:Person)
+            }
+          }
+        }
+      }
+    '
+  ></ontodia>
+</div>
+]]>
+        </mp-code-example>
+      </div>
+    </div>
+    <h3> Customization </h3>
+    <p> Ontodia provides number of configuration options to tailor visual the representation of a diagram
+       to particular data set. Developers can alter both visual templates as well as how the data will
+        be fetched from data set. Currently visual templates for elements and link representation could be
+        specified only by customizing Ontodia component in code, but many options for modifying how
+        data will be fetched and processed could be specified through component configuration on the page.</p>
+    <h4> Accessing the data </h4>
+    Ontodia works by accessing all of the data provided by SPARQL endpoint of metaphactory. Ontodia will fetch ontology from this endpoint and will fetch data as elements start to appear in the diagram by user action or initialization options.
+    Ontodia component will listen for <code>SemanticContext</code> for loading and saving of the diagrams, but will use only default context for the ontology and for the data.
+        <h4>Settings preset</h4>
+    <p>Settings are pre-configured configuration of how Ontodia will fetch and process data from triplestore.
+       Affected parameters are option to gather additional statistics from data set, what language is used to
+      specify ontology, how class tree is constructed, how instance search is performed, etc. All of those features can be overriden by using advanced data provider configuration, described later.</p>
+    
+    <p>Setting are controlled with <code>settings</code> parameter. Possible values are:</p>
+          <ol>
+              <li><code>default</code> - for basic rdfs/owl dataset. Statistics will be calculated, so the dataset should be of reasonable size for a nice user experience. This is the default setting.</li>
+              <li><code>nostats</code> - for large rdfs/owl dataset. Some statistics will be omitted to work on larger data sets.</li>
+              <li><code>dbpedia</code> - tailored for DBPedia. Uses owl ontology, virtuozo full text search, and filter out Yago classes to reduce clutter.</li>
+              <li><code>wikidata</code> - tailored for Wikidata. Non-owl ontology, blazegraph extensions for full text search, filters out unsupported dataset features.</li>
+          </ol>
+
+    <h4>Images</h4>
+    Images can be displayed in Ontodia along with the nodes. This behaviour can be specified in two ways: Either by specifying the <code>image</code> property or a specific SPARQL Query to create return the image URLs.
+
+    <p>To specify image property IRIs, pass <code>image-iris</code> parameter containing a list of image property iris to the component:
+    <code><ontodia
+       image-iris='["http://collection.britishmuseum.org/id/ontology/PX_has_main_representation"]'>
+     </ontodia>
+    </code>
+    </p>
+    <p>If you need more control on how image URL will be created, you can specify <code>image-query</code> parameter. It could be used to create image URL from metadata, to proxy image through local cache or to scale it, as in the following example:
+      <code>
+          <ontodia image-query='
+            PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+            SELECT ?element ?image {
+              ?element wdt:P18|wdt:P41|wdt:P154 ?img.
+              BIND(CONCAT(
+                "https://commons.wikimedia.org/w/thumb.php?f=",
+                STRAFTER(STR(?img), "Special:FilePath/"),
+                "&w=200"
+              ) as ?image)
+            }' settings='wikidata'>
+          </ontodia>
+      </code>
+    </p>
+
+    <h4>Advanced data provider configuration</h4>
+    <p>Specifying <code>provider-settings</code> parameters allows to override base configuration set by <code>settings</code> parameter. This configuration can be used to:
+        <ul>
+            <li>use Ontodia with non-OWL/RDFS ontology</li>
+            <li>limit amount of data available to the user</li>
+            <li>transform some data before displaying it to the user</li>
+            <li>implement usage of custom full text search extensions</li>
+        </ul>
+
+        Fields of provider settings are describen in the beginning of this document in Configuration section and they range from boolean fields to rdf patterns and full SPARQL queries.
+        You can specify only fields that you want to override in original configuration.
+        The most basic settings are below, for more configuration examples see ontodia repository at <a href="https://github.com/ontodia-org/ontodia/blob/master/src/ontodia/data/sparql/sparqlDataProviderSettings.ts">Github</a>:
+      <mp-code-block mode='application/json'>
+<![CDATA[
+          {
+            defaultPrefix:
+                `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+         PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+         PREFIX owl:  <http://www.w3.org/2002/07/owl#>
+        `,
+            schemaLabelProperty: 'rdfs:label',
+            dataLabelProperty: 'rdfs:label',
+            linksInfoQuery: `SELECT ?source ?type ?target
+            WHERE {
+                ?source ?type ?target.
+                VALUES (?source) {\${ids}}
+                VALUES (?target) {\${ids}}
+            }`,
+            fullTextSearch: {
+                prefix: '',
+                queryPattern:
+                ` OPTIONAL {?inst \${dataLabelProperty} ?search1}
+                FILTER regex(COALESCE(str(?search1), str(?extractedLabel)), "\${text}", "i")
+                BIND(0 as ?score)
+        `,
+                extractLabel: true,
+            },
+            classTreeQuery: `
+                    SELECT ?class ?label ?parent
+                    WHERE {
+                        {
+                            ?class a rdfs:Class
+                        } UNION {
+                            ?class a owl:Class
+                        }
+                        FILTER ISIRI(?class)
+                        OPTIONAL {?class rdfs:label ?label}
+                        OPTIONAL {?class rdfs:subClassOf ?parent. FILTER ISIRI(?parent)}
+                    }
+                `,
+            linkTypesPattern: `{	?link a rdf:Property
+                            } UNION {
+                            ?link a owl:ObjectProperty
+                        }
+                        BIND('' as ?instcount)
+        `,
+            elementInfoQuery: `
+                    SELECT ?inst ?class ?label ?propType ?propValue
+                    WHERE {
+                        OPTIONAL {?inst rdf:type ?class . }
+                        OPTIONAL {?inst \${dataLabelProperty} ?label}
+                        OPTIONAL {?inst ?propType ?propValue.
+                        FILTER (isLiteral(?propValue)) }
+                    } VALUES (?inst) {\${ids}}
+                `,
+            imageQueryPattern: `{ ?inst ?linkType ?image } UNION { [] ?linkType ?inst. BIND(?inst as ?image) }`,
+            linkTypesOfQuery: `
+                SELECT ?link (count(distinct ?outObject) as ?outCount) (count(distinct ?inObject) as ?inCount)
+                WHERE {
+                    { \${elementIri} ?link ?outObject}
+                    UNION
+                    { ?inObject ?link \${elementIri}}
+                } GROUP BY ?link
+            `,
+            filterRefElementLinkPattern: '',
+            filterTypePattern: `?inst rdf:type \${elementTypeIri} . ${'\n'}`,
+            filterElementInfoPattern: `OPTIONAL {?inst rdf:type ?foundClass}
+                        BIND (coalesce(?foundClass, owl:Thing) as ?class)
+                        OPTIONAL {?inst \${dataLabelProperty} ?label}`,
+            filterAdditionalRestriction: '',
+        }
+]]>
+      </mp-code-block>
+  </div>
+</div>

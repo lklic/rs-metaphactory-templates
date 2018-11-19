@@ -1,0 +1,129 @@
+<ol class="page-breadcrumb">
+  <li>
+    <mp-link title="Home" url="/">Home</mp-link>
+  </li>
+   <li class="active">
+    <mp-label iri='[[this]]'></mp-label>
+  </li>
+</ol>
+
+<div class="page">
+  [[!-- [[#> crmPageModule:ClipboardSidebar]] --]]
+  <div class='page__header-navtabs'>
+      [[> Platform:DefaultResourceHeader]]
+   </div>
+
+   <div class="SplitPane  vertical " style="flex-direction: row; flex: 1 1 0%; user-select: text; overflow: hidden; position: absolute; height: 100%; left: 0px; right: 0px; outline: none; display: -webkit-flex;"> 
+       
+    <div class="Pane vertical Pane1" style="flex: 0 0 auto; position: relative; outline: none;">
+    	[[#>rsi:ClipboardSidebar]]
+    	[[/rsi:ClipboardSidebar]]
+  	</div>
+  	<div class="Pane vertical Pane2" style="flex: 1 1 0%; position: relative; outline: none; width: 25%;">
+  
+  <bs-tabs id='record-tabs' class='page__body-navtabs--borderless' default-active-key='summary' unmount-on-exit=true>
+    <bs-tab event-key='summary' title='Summary'>
+      <div data-flex-layout='row top-stretch'>
+          <div data-flex-self='size-xsmall' style="color:#e8e6e6;font-weight:700;" class="text-center">
+                [[> rsi:RecordImage]]
+        	</div>
+        <div class='table-responsive'>
+          <table class='table'>
+            <thead role='header'>
+              <tr>
+                <th>Field</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            
+<mp-field-visualization
+subject='[[this]]'
+fields='[[fieldDefinitions
+http://www.metaphacts.com/fieldDefinition/Artist_ID_Getty="http://www.metaphacts.com/fieldDefinition/Artist_ID_Getty"
+http://www.metaphacts.com/fieldDefinition/Artist_Name_Getty="http://www.metaphacts.com/fieldDefinition/Artist_Name_Getty"
+
+http://www.metaphacts.com/fieldDefinition/Artist_Name_Florentine_Paintings="http://www.metaphacts.com/fieldDefinition/Artist_Name_Florentine_Paintings"
+http://www.metaphacts.com/fieldDefinition/ULAN_Pref_Name="http://www.metaphacts.com/fieldDefinition/ULAN_Pref_Name"
+http://www.metaphacts.com/fieldDefinition/Hollis_URI="http://www.metaphacts.com/fieldDefinition/Hollis_URI"
+http://www.metaphacts.com/fieldDefinition/Wikdata_URI="http://www.metaphacts.com/fieldDefinition/Wikdata_URI"
+http://www.metaphacts.com/fieldDefinition/Geonames_URI="http://www.metaphacts.com/fieldDefinition/Geonames_URI"
+
+http://www.metaphacts.com/fieldDefinition/Artist_Name_Fototeca="http://www.metaphacts.com/fieldDefinition/Artist_Name_Fototeca"
+]]'
+template='{{> Platform:FieldBasedVisualization subject="[[this]]"}}'
+></mp-field-visualization>
+            
+             </table>
+        </div>
+      </div>
+    </bs-tab>
+    <bs-tab event-key='more-from-getty' title='Getty ULAN'>
+      <div> 
+        <div data-flex-layout='row top-stretch'>
+          <div data-flex-self='size-xsmall' style="color:#e8e6e6;font-weight:700;" class="text-center">
+                [[> rsi:RecordImage]]
+        	</div>
+        <div class='table-responsive'>
+          <table class='table'>
+            <thead role='header'>
+              <tr>
+                <th>Field</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            
+<mp-field-visualization
+subject='[[this]]'
+fields='[[fieldDefinitions
+http://www.metaphacts.com/fieldDefinition/Artist_ID_Getty_Remote="http://www.metaphacts.com/fieldDefinition/Artist_ID_Getty_Remote"
+http://www.metaphacts.com/fieldDefinition/Pref_Label_Getty_Remote="http://www.metaphacts.com/fieldDefinition/Pref_Label_Getty_Remote"
+http://www.metaphacts.com/fieldDefinition/Short_Description_Getty_Remote="http://www.metaphacts.com/fieldDefinition/Short_Description_Getty_Remote"
+http://www.metaphacts.com/fieldDefinition/Source_of_Info_Getty_Remote="http://www.metaphacts.com/fieldDefinition/Source_of_Info_Getty_Remote"
+http://www.metaphacts.com/fieldDefinition/Student_Of_Getty_Remote="http://www.metaphacts.com/fieldDefinition/Student_Of_Getty_Remote"
+http://www.metaphacts.com/fieldDefinition/Teacher_Of_Getty_Remote="http://www.metaphacts.com/fieldDefinition/Teacher_Of_Getty_Remote"
+http://www.metaphacts.com/fieldDefinition/Collaborated_With_Getty_Remote="http://www.metaphacts.com/fieldDefinition/Collaborated_With_Getty_Remote"
+http://www.metaphacts.com/fieldDefinition/Influenced_Getty_Remote="http://www.metaphacts.com/fieldDefinition/Influenced_Getty_Remote"
+http://www.metaphacts.com/fieldDefinition/Assisted_By_Getty_Remote="http://www.metaphacts.com/fieldDefinition/Assisted_By_Getty_Remote"
+]]'
+template='{{> Platform:FieldBasedVisualization subject="[[this]]"}}'
+></mp-field-visualization>
+            
+             </table>
+        </div>
+      </div>
+      </div>
+    </bs-tab>
+     <bs-tab event-key='artworks-from-artist' title='Artworks'>
+      <div> 
+        <div data-flex-layout='row top-stretch'>
+          <div data-flex-self='size-xsmall' style="color:#e8e6e6;font-weight:700;" class="text-center">
+                [[> rsi:RecordImage]]
+        	</div>
+        <div class='table-responsive'>
+          <table class='table'>
+            <thead role='header'>
+              <tr>
+                <th>Field</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            
+<mp-field-visualization
+subject='[[this]]'
+fields='[[fieldDefinitions
+http://www.metaphacts.com/fieldDefinition/Artist_Artwork_ID_Getty="http://www.metaphacts.com/fieldDefinition/Artist_Artwork_ID_Getty"
+http://www.metaphacts.com/fieldDefinition/Artist_Artwork_ID_Fototeca="http://www.metaphacts.com/fieldDefinition/Artist_Artwork_ID_Fototeca"
+http://www.metaphacts.com/fieldDefinition/Artist_Artwork_ID_Florentine="http://www.metaphacts.com/fieldDefinition/Artist_Artwork_ID_Florentine"
+]]'
+template='{{> Platform:FieldBasedVisualization subject="[[this]]"}}'
+></mp-field-visualization>
+            
+             </table>
+        </div>
+      </div>
+      </div>
+    </bs-tab>
+  </bs-tabs>  
+</div>
+  </div>
+</div>

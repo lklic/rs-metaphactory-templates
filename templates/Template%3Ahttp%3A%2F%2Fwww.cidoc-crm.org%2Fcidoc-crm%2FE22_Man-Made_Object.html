@@ -1,0 +1,98 @@
+<ol class="page-breadcrumb">
+  <li>
+    <mp-link title="Home" url="/">Home</mp-link>
+  </li>
+   <li class="active">
+    <mp-label iri='[[this]]'></mp-label>
+  </li>
+</ol>
+<div class="page">
+   <div class='page__header-navtabs'>
+      [[> Platform:DefaultResourceHeader]]
+   </div>
+   <div class="SplitPane  vertical " style="flex-direction: row; flex: 1 1 0%; user-select: text; overflow: hidden; position: absolute; height: 100%; left: 0px; right: 0px; outline: none; display: -webkit-flex;"> 
+       
+    <div class="Pane vertical Pane1" style="flex: 0 0 auto; position: relative; outline: none;">
+    	[[#>rsi:ClipboardSidebar]]
+    	[[/rsi:ClipboardSidebar]]
+  	</div>
+  	<div class="Pane vertical Pane2" style="flex: 1 1 0%; position: relative; outline: none; width: 25%;">
+  
+  <bs-tabs id='record-tabs' class='page__body-navtabs--borderless' default-active-key='summary' unmount-on-exit=true>
+    <bs-tab event-key='summary' title='Summary'>
+      <div data-flex-layout='row top-stretch'>
+                <div data-flex-self='size-xsmall' style="color:#e8e6e6;font-weight:700;" class="text-center">
+                [[> rsi:RecordImage]]
+        	</div>
+        <div class='table-responsive'>
+          <table class='table'>
+            <thead role='header'>
+              <tr>
+                <th>Field</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            
+<mp-field-visualization
+subject='[[this]]'
+fields='[[fieldDefinitions
+http://www.metaphacts.com/fieldDefinition/Artwork_ID_Getty="http://www.metaphacts.com/fieldDefinition/Artwork_ID_Getty"
+http://www.metaphacts.com/fieldDefinition/Artwork_Artist_Name_Getty="http://www.metaphacts.com/fieldDefinition/Artwork_Artist_Name_Getty"
+http://www.metaphacts.com/fieldDefinition/Artwork_Artist_ID_Getty="http://www.metaphacts.com/fieldDefinition/Artwork_Artist_ID_Getty"
+http://www.metaphacts.com/fieldDefinition/Production_End_Date_Getty="http://www.metaphacts.com/fieldDefinition/Production_End_Date_Getty"
+http://www.metaphacts.com/fieldDefinition/Production_Start_Date_Getty="http://www.metaphacts.com/fieldDefinition/Production_Start_Date_Getty"
+http://www.metaphacts.com/fieldDefinition/Photograph_ID_Getty="http://www.metaphacts.com/fieldDefinition/Photograph_ID_Getty"
+http://www.metaphacts.com/fieldDefinition/Photo_Artwork_ID_Getty="http://www.metaphacts.com/fieldDefinition/Photo_Artwork_ID_Getty"
+http://www.metaphacts.com/fieldDefinition/Photo_Artwork_Collection_ID_Getty="http://www.metaphacts.com/fieldDefinition/Photo_Artwork_Collection_ID_Getty"
+http://www.metaphacts.com/fieldDefinition/Artwork_Photo_ID_Getty="http://www.metaphacts.com/fieldDefinition/Artwork_Photo_ID_Getty"
+http://www.metaphacts.com/fieldDefinition/Verso_Image_Getty="http://www.metaphacts.com/fieldDefinition/Verso_Image_Getty"
+http://www.metaphacts.com/fieldDefinition/Recto_Image_Getty="http://www.metaphacts.com/fieldDefinition/Recto_Image_Getty"
+
+http://www.metaphacts.com/fieldDefinition/Berenson_Catalogue_Number_Florentine_Paintings="http://www.metaphacts.com/fieldDefinition/Berenson_Catalogue_Number_Florentine_Paintings"
+http://www.metaphacts.com/fieldDefinition/Artwork_Artist_Florentine_Paintings="http://www.metaphacts.com/fieldDefinition/Artwork_Artist_Florentine_Paintings"
+http://www.metaphacts.com/fieldDefinition/Berenson_Catalogue_Page_Florentine_Paintings="http://www.metaphacts.com/fieldDefinition/Berenson_Catalogue_Page_Florentine_Paintings"
+http://www.metaphacts.com/fieldDefinition/Berenson_Book_Edition_Florentine_Paintings="http://www.metaphacts.com/fieldDefinition/Berenson_Book_Edition_Florentine_Paintings"
+http://www.metaphacts.com/fieldDefinition/Collection_Florentine_Paintings="http://www.metaphacts.com/fieldDefinition/Collection_Florentine_Paintings"
+http://www.metaphacts.com/fieldDefinition/Sub_Collection_Florentine_Paintings="http://www.metaphacts.com/fieldDefinition/Sub_Collection_Florentine_Paintings"
+http://www.metaphacts.com/fieldDefinition/Museum_Inventory_Number_Florentine_Paintings="http://www.metaphacts.com/fieldDefinition/Museum_Inventory_Number_Florentine_Paintings"
+http://www.metaphacts.com/fieldDefinition/City_Florentine_Paintings="http://www.metaphacts.com/fieldDefinition/City_Florentine_Paintings"
+http://www.metaphacts.com/fieldDefinition/Technique_Florentine_Paintings="http://www.metaphacts.com/fieldDefinition/Technique_Florentine_Paintings"
+http://www.metaphacts.com/fieldDefinition/Recto_Florentine_Paintings="http://www.metaphacts.com/fieldDefinition/Recto_Florentine_Paintings"
+http://www.metaphacts.com/fieldDefinition/Recto_Image_Florentine_Paintings="http://www.metaphacts.com/fieldDefinition/Recto_Image_Florentine_Paintings"
+http://www.metaphacts.com/fieldDefinition/Verso_Florentine_Paintings="http://www.metaphacts.com/fieldDefinition/Verso_Florentine_Paintings"
+http://www.metaphacts.com/fieldDefinition/Verso_Image_Florentine_Paintings="http://www.metaphacts.com/fieldDefinition/Verso_Image_Florentine_Paintings"
+http://www.metaphacts.com/fieldDefinition/External_Museum_Link_Florentine_Paintings="http://www.metaphacts.com/fieldDefinition/External_Museum_Link_Florentine_Paintings"
+
+http://www.metaphacts.com/fieldDefinition/Artwork_ID_Fototeca="http://www.metaphacts.com/fieldDefinition/Artwork_ID_Fototeca"
+http://www.metaphacts.com/fieldDefinition/Artwork_Name_Fototeca="http://www.metaphacts.com/fieldDefinition/Artwork_Name_Fototeca"
+http://www.metaphacts.com/fieldDefinition/Artwork_Type_Fototeca="http://www.metaphacts.com/fieldDefinition/Artwork_Type_Fototeca"
+http://www.metaphacts.com/fieldDefinition/Artwork_Subject_Fototeca="http://www.metaphacts.com/fieldDefinition/Artwork_Subject_Fototeca"
+http://www.metaphacts.com/fieldDefinition/Artwork_Culture_Fototeca="http://www.metaphacts.com/fieldDefinition/Artwork_Culture_Fototeca"
+http://www.metaphacts.com/fieldDefinition/Artwork_Production_Country_Fototeca="http://www.metaphacts.com/fieldDefinition/Artwork_Production_Country_Fototeca"
+http://www.metaphacts.com/fieldDefinition/Artwork_Artist_Name_Fototeca="http://www.metaphacts.com/fieldDefinition/Artwork_Artist_Name_Fototeca"
+http://www.metaphacts.com/fieldDefinition/Institution_Fototeca="http://www.metaphacts.com/fieldDefinition/Institution_Fototeca"
+http://www.metaphacts.com/fieldDefinition/Artwork_Image_Fototeca="http://www.metaphacts.com/fieldDefinition/Artwork_Image_Fototeca"
+
+http://www.metaphacts.com/fieldDefinition/Photo_Artwork_ID_Fototeca="http://www.metaphacts.com/fieldDefinition/Photo_Artwork_ID_Fototeca"
+http://www.metaphacts.com/fieldDefinition/Accession_Date_Fototeca="http://www.metaphacts.com/fieldDefinition/Accession_Date_Fototeca"
+http://www.metaphacts.com/fieldDefinition/Image_Classification_Number_Fototeca="http://www.metaphacts.com/fieldDefinition/Image_Classification_Number_Fototeca"
+http://www.metaphacts.com/fieldDefinition/Image_Credit_Fototeca="http://www.metaphacts.com/fieldDefinition/Image_Credit_Fototeca"
+http://www.metaphacts.com/fieldDefinition/Image_Measurement_Fototeca="http://www.metaphacts.com/fieldDefinition/Image_Measurement_Fototeca"
+http://www.metaphacts.com/fieldDefinition/Image_Notes_Fototeca="http://www.metaphacts.com/fieldDefinition/Image_Notes_Fototeca"
+http://www.metaphacts.com/fieldDefinition/Image_Provider_Fototeca="http://www.metaphacts.com/fieldDefinition/Image_Provider_Fototeca"
+http://www.metaphacts.com/fieldDefinition/Image_Source_Publisher_Fototeca="http://www.metaphacts.com/fieldDefinition/Image_Source_Publisher_Fototeca"
+http://www.metaphacts.com/fieldDefinition/Image_Source_Title_Fototeca="http://www.metaphacts.com/fieldDefinition/Image_Source_Title_Fototeca"
+http://www.metaphacts.com/fieldDefinition/Page_Plate_Number_Fototeca="http://www.metaphacts.com/fieldDefinition/Page_Plate_Number_Fototeca"
+http://www.metaphacts.com/fieldDefinition/Image_Technique_Fototeca="http://www.metaphacts.com/fieldDefinition/Image_Technique_Fototeca"
+http://www.metaphacts.com/fieldDefinition/Image_Fototeca="http://www.metaphacts.com/fieldDefinition/Image_Fototeca"
+]]'
+template='{{> Platform:FieldBasedVisualization subject="[[this]]"}}'
+></mp-field-visualization>
+             </table>
+        </div>
+      </div>
+    </bs-tab>
+  </bs-tabs>  
+</div>
+  </div>
+</div>
